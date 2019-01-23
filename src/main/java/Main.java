@@ -11,6 +11,7 @@ public class Main {
         Terminal terminal = terminalFactory.createTerminal();
 
 //ödkzjcnvladkjfbvladkfjglvdgd
+        System.out.println();
 
     }
 }
