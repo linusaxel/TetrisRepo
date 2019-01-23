@@ -10,7 +10,7 @@ public class Main {
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         Terminal terminal = terminalFactory.createTerminal();
 
-//ödkzjcnvladkjfbvladkfjgl
+//ödkzjcnvladkjfbvladkfjglvdgd
 
     }
 }
