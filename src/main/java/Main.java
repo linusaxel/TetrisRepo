@@ -19,6 +19,5 @@ public class Main {
             Thread.sleep(5); // might throw InterruptedException
             keyStroke = terminal.pollInput();
         } while (keyStroke == null);
-
     }
 }
