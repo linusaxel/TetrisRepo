@@ -20,5 +20,19 @@ public class TetS extends Tetromino {
         }
     }
 
+    public void setsShapeDOWN(Positions anchor) {
 
+    }
+
+    public void setsShapeLEFT(Positions anchor) {
+
+    }
+
+    public void setsShapeUP(Positions anchor) {
+
+    }
+
+    public void setsShapeRIGHT(Positions anchor) {
+
+    }
 }

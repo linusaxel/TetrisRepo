@@ -18,5 +18,12 @@ public class TetI extends Tetromino{
         }
     }
 
+    public void setsShapeVERTICAL(Positions anchor) {
+
+    }
+
+    public void setsShapeHORIZONTAL(Positions anchor) {
+
+    }
 
 }

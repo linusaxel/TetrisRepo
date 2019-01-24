@@ -10,9 +10,12 @@ public class TetO extends Tetromino {
         this.configuration = configuration;
 
         if (configuration == TetOConfiguration.UP) {
-
+            setsShapeUP(this.anchor);
         }
     }
 
+    public void setsShapeUP(Positions anchor) {
+
+    }
 
 }
