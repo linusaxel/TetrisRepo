@@ -15,18 +15,23 @@ public class TetT {
 
     public TetT(Positions anchor, TetTConfiguration configuration) throws Exception {
         this.anchor = anchor;
+        this.configuration = configuration;
 
         if (configuration == TetTConfiguration.UP) {
-            configuration = TetTConfiguration.RIGHT;
+
         } else if (configuration == TetTConfiguration.RIGHT) {
-            configuration = TetTConfiguration.DOWN;
-        } else if (configuration == TetTConfiguration.DOWN) {
-            configuration = TetTConfiguration.LEFT;
-        } else if (configuration == TetTConfiguration.LEFT) {
-            configuration = TetTConfiguration.UP;
+
+        }
+        else if (configuration == TetTConfiguration.DOWN) {
+            setsShapeDOWN(this.anchor);
+        }
+        else if (configuration == TetTConfiguration.LEFT) {
+
+        }
+        else if (configuration == TetTConfiguration.UP) {
+
         }
 
-        this.configuration = configuration;
     }
 
     public void setsShapeDOWN(Positions anchor) {

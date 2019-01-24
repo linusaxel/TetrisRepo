@@ -9,11 +9,11 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException, Exception {
+    public static void main(String[] args) throws Exception {
         runTetris();
     }
 
-    private static void runTetris() throws IOException, InterruptedException {
+    private static void runTetris() throws Exception {
         TetrisConsole con = new TetrisConsole();
 
         Figure figL = new Figure(Shape.L_TETROMINO, TextColor.ANSI.MAGENTA);
