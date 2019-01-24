@@ -37,9 +37,9 @@ public class Main {
             keyStroke = con.pollInput();
         } while (keyStroke == null);
         con.exit();
-//
-//        Walls walls = new Walls();
-//        walls.createWalls();
+
+        Walls walls = new Walls();
+        walls.createWalls();
     }
 }
 
