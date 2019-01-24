@@ -20,6 +20,7 @@ public class Main2 {
 
         int x = 3;
         int y = 3;
+        TetTConfiguration initialShape = TetTConfiguration.DOWN;
 
         while (true) {
             //Creates keystroke object, declares it as null
@@ -31,7 +32,7 @@ public class Main2 {
                 keyStroke = terminal.pollInput();
 //                counter++;
 //                if (counter % 50 == 0) {
-                    TetT tetT = new TetT(new Positions(x, y),TetTConfiguration.DOWN);
+                    TetT tetT = new TetT(new Positions(x, y),initialShape);
                     tetT.setsShapeDOWN(tetT.getAnchor());
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush(); // required one
