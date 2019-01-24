@@ -1,7 +1,5 @@
 public enum TetSConfiguration {
 
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
+    HORIZONTAL,
+    VERTICAL,
 }

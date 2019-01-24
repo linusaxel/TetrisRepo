@@ -17,14 +17,30 @@ public class Main2 {
         Terminal terminal = setUpTerminal();
 
         //Set initial position for first shape
-        Positions currentPosition = new Positions(3, 3);
+        Positions currentPosition = new Positions(10, 1);
 
         //Emmas stuff
         Walls.createWalls(terminal);
-        int configurationCount = 1;
+        int configurationCountS = 1;
+        int configurationCountI = 1;
+        int configurationCountL = 1;
+        int configurationCountT = 1;
 
-        TetTConfiguration config = TetTConfiguration.DOWN;
-        TetT tetT = new TetT(currentPosition, config);
+        TetSConfiguration configS = TetSConfiguration.HORIZONTAL;
+        TetOConfiguration configO = TetOConfiguration.UP;
+        TetLConfiguration configL = TetLConfiguration.RIGHT;
+        TetIConfiguration configI = TetIConfiguration.HORIZONTAL;
+        TetTConfiguration configT = TetTConfiguration.UP;
+
+
+
+        TetT tetT = new TetT(currentPosition, configT);
+        TetS tetS = new TetS(currentPosition, configS);
+        TetO tetO = new TetO(currentPosition, configO);
+        TetL tetL = new TetL(currentPosition, configL);
+        TetI tetI = new TetI(currentPosition, configI);
+
+
         //Never-ending loop for movement of shapes
         while (true) {
 
@@ -35,11 +51,35 @@ public class Main2 {
 
             do {
                 if (counter % 40 == 0) {
-                    tetT = new TetT(currentPosition,config);
+//                    tetT = new TetT(currentPosition,configT);
+//                    terminal.flush();
+//                    tetT.printToTerminal(terminal, tetT.getPositions());
+//                    terminal.flush();
+//                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+
+//                    tetS = new TetS(currentPosition,configS);
+//                    terminal.flush();
+//                    tetS.printToTerminal(terminal, tetS.getPositions());
+//                    terminal.flush();
+//                    tetS.eraseFromTerminal(terminal, tetS.getPositions());
+
+                    tetO = new TetO(currentPosition,configO);
                     terminal.flush();
-                    tetT.printToTerminal(terminal, tetT.getPositions());
+                    tetO.printToTerminal(terminal, tetO.getPositions());
                     terminal.flush();
-                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    tetO.eraseFromTerminal(terminal, tetO.getPositions());
+
+//                    tetL = new TetL(currentPosition,configL);
+//                    terminal.flush();
+//                    tetL.printToTerminal(terminal, tetL.getPositions());
+//                    terminal.flush();
+//                    tetL.eraseFromTerminal(terminal, tetL.getPositions());
+
+//                    tetI = new TetI(currentPosition,configI);
+//                    terminal.flush();
+//                    tetI.printToTerminal(terminal, tetI.getPositions());
+//                    terminal.flush();
+//                    tetI.eraseFromTerminal(terminal, tetI.getPositions());
 
                     currentPosition.setY(currentPosition.getY()+1);
                 }
@@ -60,27 +100,78 @@ public class Main2 {
 
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-                    //TetT tetT = new TetT(currentPosition, TetTConfiguration.LEFT);
 
-                    if (configurationCount == 1) {
+//================================================================================================TetO
+
+//================================================================================================TetL
+                    if (configurationCountL == 1) {
                         tetT.setsShapeLEFT(currentPosition);
-                        config = TetTConfiguration.LEFT;
-                        configurationCount++;
+                        configL = TetLConfiguration.DOWN;
+                        configurationCountL++;
                     }
-                    else if (configurationCount == 2) {
+                    else if (configurationCountL == 2) {
                         tetT.setsShapeUP(currentPosition);
-                        config = TetTConfiguration.UP;
-                        configurationCount++;
+                        configL = TetLConfiguration.LEFT;
+                        configurationCountL++;
                     }
-                    else if (configurationCount == 3) {
+                    else if (configurationCountL == 3) {
                         tetT.setsShapeRIGHT(currentPosition);
-                        config = TetTConfiguration.RIGHT;
-                        configurationCount++;
+                        configL = TetLConfiguration.UP;
+                        configurationCountL++;
                     }
-                    else if (configurationCount == 4) {
+                    else if (configurationCountL == 4) {
                         tetT.setsShapeDOWN(currentPosition);
-                        config = TetTConfiguration.DOWN;
-                        configurationCount = 1;
+                        configL = TetLConfiguration.RIGHT;
+                        configurationCountL = 1;
+                    }
+
+
+//================================================================================================TetI
+                    if (configurationCountI == 1) {
+                        tetI.setsShapeVERTICAL(currentPosition);
+                        configI = TetIConfiguration.VERTICAL;
+                        configurationCountI++;
+                    }
+                    else if (configurationCountI == 2) {
+                        tetI.setsShapeHORIZONTAL(currentPosition);
+                        configI = TetIConfiguration.HORIZONTAL;
+                        configurationCountI = 1;
+                    }
+
+
+//================================================================================================TetS
+                    if (configurationCountS == 1) {
+                        tetS.setsShapeVERTICAL(currentPosition);
+                        configS = TetSConfiguration.VERTICAL;
+                        configurationCountS++;
+                    }
+                    else if (configurationCountS == 2) {
+                        tetS.setsShapeHORIZONTAL(currentPosition);
+                        configS = TetSConfiguration.HORIZONTAL;
+                        configurationCountS = 1;
+                    }
+
+                    //TetT tetT = new TetT(currentPosition, TetTConfiguration.LEFT);
+//================================================================================================TetT
+                    if (configurationCountT == 1) {
+                        tetT.setsShapeLEFT(currentPosition);
+                        configT = TetTConfiguration.LEFT;
+                        configurationCountT++;
+                    }
+                    else if (configurationCountT == 2) {
+                        tetT.setsShapeUP(currentPosition);
+                        configT = TetTConfiguration.UP;
+                        configurationCountT++;
+                    }
+                    else if (configurationCountT == 3) {
+                        tetT.setsShapeRIGHT(currentPosition);
+                        configT = TetTConfiguration.RIGHT;
+                        configurationCountT++;
+                    }
+                    else if (configurationCountT == 4) {
+                        tetT.setsShapeDOWN(currentPosition);
+                        configT = TetTConfiguration.DOWN;
+                        configurationCountT = 1;
                     }
 
                     break;

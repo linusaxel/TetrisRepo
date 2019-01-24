@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -6,10 +7,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class TetT extends Tetromino{
-
-
-    private Positions anchor;
-    private Positions[] positions;
+    private final TextColor color = TextColor.ANSI.GREEN;
     private TetTConfiguration configuration;
 
     public TetT(Positions anchor, TetTConfiguration configuration) throws Exception {
