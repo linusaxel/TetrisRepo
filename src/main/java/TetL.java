@@ -1,12 +1,10 @@
 import com.googlecode.lanterna.TextColor;
 
 public class TetL extends Tetromino{
-    private final TextColor color = TextColor.ANSI.MAGENTA;
     private TetLConfiguration configuration;
 
-
-    public TetL(Positions anchor, TetLConfiguration configuration) {
-        super.anchor = anchor;
+    public TetL(Positions anchor, TetLConfiguration configuration, TextColor color) {
+        super(anchor, color);
         this.configuration = configuration;
 
         if (configuration == TetLConfiguration.UP) {

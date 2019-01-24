@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -34,11 +35,11 @@ public class Main2 {
 
 
 
-        TetT tetT = new TetT(currentPosition, configT);
-        TetS tetS = new TetS(currentPosition, configS);
-        TetO tetO = new TetO(currentPosition, configO);
-        TetL tetL = new TetL(currentPosition, configL);
-        TetI tetI = new TetI(currentPosition, configI);
+        TetT tetT = new TetT(currentPosition, configT, TextColor.ANSI.GREEN);
+        TetS tetS = new TetS(currentPosition, configS, TextColor.ANSI.WHITE);
+        TetO tetO = new TetO(currentPosition, configO, TextColor.ANSI.YELLOW);
+        TetL tetL = new TetL(currentPosition, configL, TextColor.ANSI.MAGENTA);
+        TetI tetI = new TetI(currentPosition, configI, TextColor.ANSI.RED);
 
 
         //Never-ending loop for movement of shapes
@@ -51,7 +52,7 @@ public class Main2 {
 
             do {
                 if (counter % 40 == 0) {
-                    tetT = new TetT(currentPosition,configT);
+                    tetT = new TetT(currentPosition, configT, TextColor.ANSI.GREEN);
                     terminal.flush();
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush();

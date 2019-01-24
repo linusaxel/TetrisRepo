@@ -7,11 +7,10 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class TetT extends Tetromino{
-    private final TextColor color = TextColor.ANSI.GREEN;
     private TetTConfiguration configuration;
 
-    public TetT(Positions anchor, TetTConfiguration configuration) throws Exception {
-        this.anchor = anchor;
+    public TetT(Positions anchor, TetTConfiguration configuration, TextColor color) throws Exception {
+        super(anchor, color);
         this.configuration = configuration;
 
         if (configuration == TetTConfiguration.UP) {
