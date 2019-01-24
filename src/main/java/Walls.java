@@ -25,7 +25,7 @@ public class Walls  {
             terminal.putCharacter(block);
             x++;
             walls.add(new Positions(x, y));
-            //walls.add(position);
+            walls.add(position);
 
         }
 //for wall bottom right to left horizontally
