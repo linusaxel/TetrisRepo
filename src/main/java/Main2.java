@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Main2 {
 
-    public static void main(String[] args) throws Exception, IOException, InterruptedException {
+    public static void main(String[] args) throws NullPointerException, Exception, IOException, InterruptedException {
         runTetris();
     }
 
@@ -16,7 +16,7 @@ public class Main2 {
         Terminal terminal = setUpTerminal();
 
         // uses Emma's code to draw
-        printWalls(terminal);
+        //printWalls(terminal);
 
 
 
@@ -24,18 +24,18 @@ public class Main2 {
 
         int x = 3;
         int y = 3;
-
         while (true) {
             //Creates keystroke object, declares it as null
             KeyStroke keyStroke = null;
 
-            int counter = 0;
+//            int counter = 0;
             do {
                 Thread.sleep(400); // might throw InterruptedException
                 keyStroke = terminal.pollInput();
 //                counter++;
 //                if (counter % 50 == 0) {
-                    TetT tetT = new TetT(new Positions(x, y), terminal);
+                    TetT tetT = new TetT(new Positions(x, y), terminal, keyStroke);
+                    tetT.setsShapeDOWN(tetT.getAnchor());
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush(); // required one
                     tetT.eraseFromTerminal(terminal, tetT.getPositions());
@@ -47,7 +47,7 @@ public class Main2 {
 
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-                    TetT tetT = new TetT(new Positions(x, y), terminal, TetTConfiguration.LEFT);
+                    TetT tetT = new TetT(new Positions(x, y), terminal, keyStroke);
                     break;
                 case ArrowDown:
                     y++;
@@ -77,7 +77,7 @@ public class Main2 {
         return terminal;
     }
 
-    public static void goDown(Terminal terminal, KeyStroke keyStroke) throws IOException, InterruptedException {
+    public static void goDown(Terminal terminal, KeyStroke keyStroke) throws Exception, InterruptedException {
         int x = 3;
         int y = 3;
         int counter = 0;
@@ -86,7 +86,7 @@ public class Main2 {
             keyStroke = terminal.pollInput();
             counter++;
             if (counter % 50 == 0) {
-                TetT tetT = new TetT(new Positions(x, y), terminal);
+                TetT tetT = new TetT(new Positions(x, y), terminal, keyStroke);
                 tetT.printToTerminal(terminal, tetT.getPositions());
                 terminal.flush(); // required one
                 tetT.eraseFromTerminal(terminal, tetT.getPositions());

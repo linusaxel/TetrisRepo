@@ -12,10 +12,10 @@ public class TetT {
     private Positions anchor;
     private Positions[] positions;
 
-    public TetT(Positions anchor, Terminal terminal, TetTConfiguration configuration, KeyStroke keyStroke) throws IOException{
+    public TetT (Positions anchor, Terminal terminal, KeyStroke keyStroke) throws Exception{
         this.anchor = anchor;
 
-        setsShapeDown(this.anchor);
+        TetTConfiguration configuration = TetTConfiguration.DOWN;
 
         if (keyStroke.getKeyType() == KeyType.ArrowUp) {
             if (configuration == TetTConfiguration.UP) {
@@ -34,23 +34,34 @@ public class TetT {
 
         switch (configuration) {
             case UP:
-                setsShapeUP(this.anchor);
-                break;
-            case DOWN:
 
                 break;
+            case DOWN:
+                setsShapeDOWN(this.anchor);
+                break;
             case LEFT:
+                setsShapeLEFT(this.anchor);
                 break;
             case RIGHT:
+
                 break;
         }
 
     }
 
-    public void setsShapeUP(Positions anchor) {
+    public void setsShapeDOWN(Positions anchor) {
         Positions positionOne = new Positions(this.anchor.getX()-1, this.anchor.getY());
         Positions positionTwo = new Positions(this.anchor.getX() +1, this.anchor.getY());
         Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY()+1);
+
+        Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
+        this.positions = positionsUP;
+    }
+
+    public void setsShapeLEFT(Positions anchor) {
+        Positions positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
+        Positions positionTwo = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY()+ 1);
 
         Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
         this.positions = positionsUP;

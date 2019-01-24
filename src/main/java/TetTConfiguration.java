@@ -1,8 +1,8 @@
 public enum TetTConfiguration {
-
+    DOWN,
     UP,
     RIGHT,
-    DOWN,
+
     LEFT
 
 }
