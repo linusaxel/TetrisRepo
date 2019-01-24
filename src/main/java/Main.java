@@ -20,6 +20,7 @@ public class Main {
 
 
         KeyStroke keyStroke;
+
         do {
             con.paintFigure(10, 15, figL);
             con.paintFigure(20, 25, figO);
@@ -32,6 +33,7 @@ public class Main {
             keyStroke = con.pollInput();
         } while (keyStroke == null);
         con.exit();
+
     }
 }
 
