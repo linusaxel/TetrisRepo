@@ -1,20 +1,31 @@
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import static com.googlecode.lanterna.input.KeyType.*;
+
 import java.io.IOException;
-import java.security.Key;
 
 public class Main2 {
 
     public static void main(String[] args) throws Exception, IOException, InterruptedException {
-        //Setting up terminal
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Terminal terminal = terminalFactory.createTerminal();
-        terminal.setCursorVisible(false);
+        runTetris();
+    }
+
+    private static void runTetris () throws Exception, IOException, InterruptedException {
+
+        //Setting up terminal, hides cursor
+        Terminal terminal = setUpTerminal();
+
+        // uses Emma's code to draw
+        printWalls(terminal);
+
+
+
+
+
         int x = 3;
         int y = 3;
-        while(true) {
+
+        while (true) {
             //Creates keystroke object, declares it as null
             KeyStroke keyStroke = null;
 
@@ -36,7 +47,7 @@ public class Main2 {
 
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-
+                    TetT tetT = new TetT(new Positions(x, y), terminal, TetTConfiguration.LEFT);
                     break;
                 case ArrowDown:
                     y++;
@@ -52,7 +63,18 @@ public class Main2 {
 
                     break;
             }
+
+
         }
+
+
+    }
+
+    public static Terminal setUpTerminal() throws IOException {
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
+        Terminal terminal = terminalFactory.createTerminal();
+        terminal.setCursorVisible(false);
+        return terminal;
     }
 
     public static void goDown(Terminal terminal, KeyStroke keyStroke) throws IOException, InterruptedException {
@@ -73,3 +95,4 @@ public class Main2 {
         } while (keyStroke == null);
     }
 }
+

@@ -1,5 +1,8 @@
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.input.KeyStroke;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class TetT {
@@ -9,10 +12,41 @@ public class TetT {
     private Positions anchor;
     private Positions[] positions;
 
-    public TetT(Positions anchor, Terminal terminal) throws IOException{
+    public TetT(Positions anchor, Terminal terminal, TetTConfiguration configuration, KeyStroke keyStroke) throws IOException{
         this.anchor = anchor;
 
+        setsShapeDown(this.anchor);
+
+        if (keyStroke.getKeyType() == KeyType.ArrowUp) {
+            if (configuration == TetTConfiguration.UP) {
+                configuration = TetTConfiguration.RIGHT;
+            }
+            else if (configuration == TetTConfiguration.RIGHT) {
+                configuration = TetTConfiguration.DOWN;
+            }
+            else if (configuration == TetTConfiguration.DOWN) {
+                configuration = TetTConfiguration.LEFT;
+            }
+            else if (configuration == TetTConfiguration.LEFT) {
+                configuration = TetTConfiguration.UP;
+            }
+        }
+
+        switch (configuration) {
+            case UP:
+                setsShapeUP(this.anchor);
+                break;
+            case DOWN:
+
+                break;
+            case LEFT:
+                break;
+            case RIGHT:
+                break;
+        }
+
     }
+
     public void setsShapeUP(Positions anchor) {
         Positions positionOne = new Positions(this.anchor.getX()-1, this.anchor.getY());
         Positions positionTwo = new Positions(this.anchor.getX() +1, this.anchor.getY());
