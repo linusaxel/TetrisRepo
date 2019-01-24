@@ -29,7 +29,7 @@ public class TetrisConsole {
     public void paintFigure(int row, int col, Figure fig) throws IOException {
         tg.setForegroundColor(fig.color);
         //tg.setBackgroundColor(TextColor.ANSI.WHITE);
-        String symb = "\u20de";
+        String symb = "\u2588";
         if (fig.shape == Shape.L_TETROMINO) {
             tg.putString(col, row, symb);
             tg.putString(col + 1, row, symb);
