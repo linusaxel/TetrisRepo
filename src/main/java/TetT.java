@@ -12,7 +12,7 @@ public class TetT {
     private Positions anchor;
     private Positions[] positions;
 
-    public TetT (Positions anchor, Terminal terminal, KeyStroke keyStroke) throws Exception{
+    public TetT (Positions anchor, KeyStroke keyStroke) throws Exception{
         this.anchor = anchor;
 
         TetTConfiguration configuration = TetTConfiguration.DOWN;

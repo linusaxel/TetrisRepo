@@ -34,7 +34,7 @@ public class Main2 {
                 keyStroke = terminal.pollInput();
 //                counter++;
 //                if (counter % 50 == 0) {
-                    TetT tetT = new TetT(new Positions(x, y), terminal, keyStroke);
+                    TetT tetT = new TetT(new Positions(x, y),keyStroke);
                     tetT.setsShapeDOWN(tetT.getAnchor());
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush(); // required one
@@ -47,7 +47,7 @@ public class Main2 {
 
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-                    TetT tetT = new TetT(new Positions(x, y), terminal, keyStroke);
+                    TetT tetT = new TetT(new Positions(x, y), keyStroke);
                     break;
                 case ArrowDown:
                     y++;
@@ -86,7 +86,7 @@ public class Main2 {
             keyStroke = terminal.pollInput();
             counter++;
             if (counter % 50 == 0) {
-                TetT tetT = new TetT(new Positions(x, y), terminal, keyStroke);
+                TetT tetT = new TetT(new Positions(x, y), keyStroke);
                 tetT.printToTerminal(terminal, tetT.getPositions());
                 terminal.flush(); // required one
                 tetT.eraseFromTerminal(terminal, tetT.getPositions());
