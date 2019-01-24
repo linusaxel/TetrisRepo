@@ -140,7 +140,7 @@ public class Walls  {
                 terminal.putCharacter(block);
                 v++;
                 walls.add(new Positions(c, v));
-                //walls.add(position);
+                walls.add(position);
 
             }
 //for wall bottom to top x axis on the left side vertically

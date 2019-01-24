@@ -3,6 +3,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main2 {
 
@@ -20,7 +21,10 @@ public class Main2 {
 
         //Emmas stuff
         Walls.createWalls(terminal);
+        int configurationCount = 1;
 
+        TetTConfiguration config = TetTConfiguration.DOWN;
+        TetT tetT = new TetT(currentPosition, config);
         //Never-ending loop for movement of shapes
         while (true) {
 
@@ -31,11 +35,12 @@ public class Main2 {
 
             do {
                 if (counter % 40 == 0) {
-                    TetT tetT = new TetT(currentPosition,TetTConfiguration.DOWN);
+                    tetT = new TetT(currentPosition,config);
                     terminal.flush();
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush();
                     tetT.eraseFromTerminal(terminal, tetT.getPositions());
+
                     currentPosition.setY(currentPosition.getY()+1);
                 }
 
@@ -55,7 +60,29 @@ public class Main2 {
 
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-//                    TetT tetT = new TetT(new Positions(x, y), TetTConfiguration.LEFT);
+                    //TetT tetT = new TetT(currentPosition, TetTConfiguration.LEFT);
+
+                    if (configurationCount == 1) {
+                        tetT.setsShapeLEFT(currentPosition);
+                        config = TetTConfiguration.LEFT;
+                        configurationCount++;
+                    }
+                    else if (configurationCount == 2) {
+                        tetT.setsShapeUP(currentPosition);
+                        config = TetTConfiguration.UP;
+                        configurationCount++;
+                    }
+                    else if (configurationCount == 3) {
+                        tetT.setsShapeRIGHT(currentPosition);
+                        config = TetTConfiguration.RIGHT;
+                        configurationCount++;
+                    }
+                    else if (configurationCount == 4) {
+                        tetT.setsShapeDOWN(currentPosition);
+                        config = TetTConfiguration.DOWN;
+                        configurationCount = 1;
+                    }
+
                     break;
                 case ArrowDown:
                     currentPosition.setY(currentPosition.getY()+1);
@@ -80,6 +107,10 @@ public class Main2 {
         terminal.setCursorVisible(false);
         return terminal;
     }
+
+//    public void checkIfEmpty(Terminal terminal, ArrayList<Positions> wall, Tetronimo) {
+//        if ()
+//    }
 
 //    public static void goDown(Terminal terminal, KeyStroke keyStroke) throws Exception, InterruptedException {
 //        int x = 3;
