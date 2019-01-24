@@ -5,10 +5,9 @@ import com.googlecode.lanterna.input.KeyStroke;
 import javax.swing.*;
 import java.io.IOException;
 
-public class TetT {
+public class TetT extends Tetromino{
 
 
-    private char block = '\u2588';
     private Positions anchor;
     private Positions[] positions;
     private TetTConfiguration configuration;
@@ -83,19 +82,4 @@ public class TetT {
         this.positions = positions;
     }
 
-    public void printToTerminal(Terminal terminal, Positions[] positions) throws IOException {
-
-        for (Positions position : positions) {
-            terminal.setCursorPosition(position.getX(), position.getY());
-            terminal.putCharacter(this.block);
-        }
-
-    }
-
-    public void eraseFromTerminal(Terminal terminal, Positions[] positions) throws IOException {
-        for (Positions position : positions) {
-            terminal.setCursorPosition(position.getX(), position.getY());
-            terminal.putCharacter(' ');
-        }
-    }
 }
