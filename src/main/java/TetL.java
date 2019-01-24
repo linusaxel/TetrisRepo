@@ -21,21 +21,48 @@ public class TetL extends Tetromino{
     }
 
     public void setsShapeDOWN(Positions anchor) {
+        Positions positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        Positions positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
+        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 2);
 
+        Positions[] positionsDOWN = {anchor, positionOne, positionTwo, positionThree};
+        this.positions = positionsDOWN;
     }
 
     public void setsShapeLEFT(Positions anchor) {
+        Positions positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        Positions positionTwo = new Positions(this.anchor.getX() - 2, this.anchor.getY());
+        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
 
+        Positions[] positionsLEFT = {anchor, positionOne, positionTwo, positionThree};
+        this.positions = positionsLEFT;
     }
 
     public void setsShapeUP(Positions anchor) {
+        Positions positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 2);
+        Positions positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
+        Positions positionThree = new Positions(this.anchor.getX() + 1, this.anchor.getY());
 
+        Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
+        this.positions = positionsUP;
     }
 
     public void setsShapeRIGHT(Positions anchor) {
+        Positions positionOne = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
+        Positions positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
+        Positions positionThree = new Positions(this.anchor.getX() + 2, this.anchor.getY());
 
+        Positions[] positionsRIGHT = {anchor, positionOne, positionTwo, positionThree};
+        this.positions = positionsRIGHT;
     }
 
+    public Positions[] getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Positions[] positions) {
+        this.positions = positions;
+    }
 }
 
 
