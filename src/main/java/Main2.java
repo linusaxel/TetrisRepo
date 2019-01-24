@@ -16,7 +16,7 @@ public class Main2 {
         Terminal terminal = setUpTerminal();
 
         //Set initial position for first shape
-        Positions initialPosition = new Positions(3, 3);
+        Positions currentPosition = new Positions(3, 3);
 
         //Never-ending loop for movement of shapes
         while (true) {
@@ -27,21 +27,19 @@ public class Main2 {
             int counter = 0;
 
             do {
-                Thread.sleep(5);
-                keyStroke = terminal.pollInput();
-                counter++;
-                terminal.flush();
-
-                if (counter % 50 == 0) {
-                    TetT tetT = new TetT(initialPosition,TetTConfiguration.DOWN);
-                    tetT.setsShapeDOWN(tetT.getAnchor());
+                if (counter % 40 == 0) {
+                    TetT tetT = new TetT(currentPosition,TetTConfiguration.DOWN);
                     terminal.flush();
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush();
                     tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                    terminal.flush();
-                    initialPosition.setY(initialPosition.getY()+1);
+                    currentPosition.setY(currentPosition.getY()+1);
                 }
+
+                Thread.sleep(10);
+                keyStroke = terminal.pollInput();
+                counter++;
+
 
             } while (keyStroke == null);
 
@@ -57,13 +55,13 @@ public class Main2 {
 //                    TetT tetT = new TetT(new Positions(x, y), TetTConfiguration.LEFT);
                     break;
                 case ArrowDown:
-                    initialPosition.setY(initialPosition.getY()+1);
+                    currentPosition.setY(currentPosition.getY()+1);
                     break;
                 case ArrowLeft:
-                    initialPosition.setX(initialPosition.getX()-1);
+                    currentPosition.setX(currentPosition.getX()-1);
                     break;
                 case ArrowRight:
-                    initialPosition.setX(initialPosition.getX()+1);
+                    currentPosition.setX(currentPosition.getX()+1);
                     break;
             }
 
