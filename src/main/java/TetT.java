@@ -26,10 +26,7 @@ public class TetT {
             setsShapeDOWN(this.anchor);
         }
         else if (configuration == TetTConfiguration.LEFT) {
-
-        }
-        else if (configuration == TetTConfiguration.UP) {
-
+            setsShapeLEFT(this.anchor);
         }
 
     }

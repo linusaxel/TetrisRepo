@@ -15,30 +15,38 @@ public class Main2 {
         //Setting up terminal, hides cursor
         Terminal terminal = setUpTerminal();
 
-        // uses Emma's code to draw
-        //printWalls(terminal);
+        //Set initial position for first shape
+        Positions initialPosition = new Positions(3, 3);
 
-        int x = 3;
-        int y = 3;
-
+        //Never-ending loop for movement of shapes
         while (true) {
-            //Creates keystroke object, declares it as null
-            KeyStroke keyStroke = null;
 
-//            int counter = 0;
+            //Creates keystroke object, declares it as null
+            KeyStroke keyStroke;
+
+            int counter = 0;
+
             do {
-                Thread.sleep(400); // might throw InterruptedException
+                Thread.sleep(5);
                 keyStroke = terminal.pollInput();
-//                counter++;
-//                if (counter % 50 == 0) {
-                    TetT tetT = new TetT(new Positions(x, y),TetTConfiguration.DOWN);
+                counter++;
+                terminal.flush();
+
+                if (counter % 50 == 0) {
+                    TetT tetT = new TetT(initialPosition,TetTConfiguration.DOWN);
                     tetT.setsShapeDOWN(tetT.getAnchor());
+                    terminal.flush();
                     tetT.printToTerminal(terminal, tetT.getPositions());
-                    terminal.flush(); // required one
+                    terminal.flush();
                     tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                    y++;
-                //}
+                    terminal.flush();
+                    initialPosition.setY(initialPosition.getY()+1);
+                }
+
             } while (keyStroke == null);
+
+
+
             //While no input from user, shape keeps going down
             //goDown(terminal, keyStroke = terminal.pollInput());
 
@@ -46,20 +54,16 @@ public class Main2 {
 
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-                    TetT tetT = new TetT(new Positions(x, y), TetTConfiguration.LEFT);
+//                    TetT tetT = new TetT(new Positions(x, y), TetTConfiguration.LEFT);
                     break;
                 case ArrowDown:
-                    y++;
-
+                    initialPosition.setY(initialPosition.getY()+1);
                     break;
                 case ArrowLeft:
-
-                    x--;
-
+                    initialPosition.setX(initialPosition.getX()-1);
                     break;
                 case ArrowRight:
-                    x++;
-
+                    initialPosition.setX(initialPosition.getX()+1);
                     break;
             }
 
