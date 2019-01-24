@@ -18,6 +18,9 @@ public class Main2 {
         //Set initial position for first shape
         Positions currentPosition = new Positions(3, 3);
 
+        //Emmas stuff
+        Walls.createWalls(terminal);
+
         //Never-ending loop for movement of shapes
         while (true) {
 

@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 public class Walls  {
 
-    public static void createWalls () throws Exception{
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Terminal terminal = terminalFactory.createTerminal();
+    public static void createWalls (Terminal terminal) throws Exception{
 
         //instantiating block char
         final char block = '\u2588';
