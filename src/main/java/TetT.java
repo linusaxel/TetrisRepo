@@ -11,48 +11,28 @@ public class TetT {
     private char block = '\u2588';
     private Positions anchor;
     private Positions[] positions;
+    private TetTConfiguration configuration;
 
-    public TetT (Positions anchor, KeyStroke keyStroke) throws Exception{
+    public TetT(Positions anchor, TetTConfiguration configuration) throws Exception {
         this.anchor = anchor;
 
-        TetTConfiguration configuration = TetTConfiguration.DOWN;
-
-        if (keyStroke.getKeyType() == KeyType.ArrowUp) {
-            if (configuration == TetTConfiguration.UP) {
-                configuration = TetTConfiguration.RIGHT;
-            }
-            else if (configuration == TetTConfiguration.RIGHT) {
-                configuration = TetTConfiguration.DOWN;
-            }
-            else if (configuration == TetTConfiguration.DOWN) {
-                configuration = TetTConfiguration.LEFT;
-            }
-            else if (configuration == TetTConfiguration.LEFT) {
-                configuration = TetTConfiguration.UP;
-            }
+        if (configuration == TetTConfiguration.UP) {
+            configuration = TetTConfiguration.RIGHT;
+        } else if (configuration == TetTConfiguration.RIGHT) {
+            configuration = TetTConfiguration.DOWN;
+        } else if (configuration == TetTConfiguration.DOWN) {
+            configuration = TetTConfiguration.LEFT;
+        } else if (configuration == TetTConfiguration.LEFT) {
+            configuration = TetTConfiguration.UP;
         }
 
-        switch (configuration) {
-            case UP:
-
-                break;
-            case DOWN:
-                setsShapeDOWN(this.anchor);
-                break;
-            case LEFT:
-                setsShapeLEFT(this.anchor);
-                break;
-            case RIGHT:
-
-                break;
-        }
-
+        this.configuration = configuration;
     }
 
     public void setsShapeDOWN(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX()-1, this.anchor.getY());
-        Positions positionTwo = new Positions(this.anchor.getX() +1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY()+1);
+        Positions positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        Positions positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
+        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
 
         Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
         this.positions = positionsUP;
@@ -61,7 +41,7 @@ public class TetT {
     public void setsShapeLEFT(Positions anchor) {
         Positions positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
         Positions positionTwo = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY()+ 1);
+        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
 
         Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
         this.positions = positionsUP;
@@ -83,7 +63,7 @@ public class TetT {
         this.positions = positions;
     }
 
-    public void printToTerminal (Terminal terminal, Positions[] positions) throws IOException {
+    public void printToTerminal(Terminal terminal, Positions[] positions) throws IOException {
 
         for (Positions position : positions) {
             terminal.setCursorPosition(position.getX(), position.getY());
@@ -91,7 +71,8 @@ public class TetT {
         }
 
     }
-    public void eraseFromTerminal (Terminal terminal, Positions[] positions) throws IOException {
+
+    public void eraseFromTerminal(Terminal terminal, Positions[] positions) throws IOException {
         for (Positions position : positions) {
             terminal.setCursorPosition(position.getX(), position.getY());
             terminal.putCharacter(' ');

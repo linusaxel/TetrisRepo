@@ -18,12 +18,9 @@ public class Main2 {
         // uses Emma's code to draw
         //printWalls(terminal);
 
-
-
-
-
         int x = 3;
         int y = 3;
+
         while (true) {
             //Creates keystroke object, declares it as null
             KeyStroke keyStroke = null;
@@ -34,7 +31,7 @@ public class Main2 {
                 keyStroke = terminal.pollInput();
 //                counter++;
 //                if (counter % 50 == 0) {
-                    TetT tetT = new TetT(new Positions(x, y),keyStroke);
+                    TetT tetT = new TetT(new Positions(x, y),TetTConfiguration.DOWN);
                     tetT.setsShapeDOWN(tetT.getAnchor());
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush(); // required one
@@ -45,9 +42,11 @@ public class Main2 {
             //While no input from user, shape keeps going down
             //goDown(terminal, keyStroke = terminal.pollInput());
 
+
+
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-                    TetT tetT = new TetT(new Positions(x, y), keyStroke);
+                    TetT tetT = new TetT(new Positions(x, y), TetTConfiguration.LEFT);
                     break;
                 case ArrowDown:
                     y++;
@@ -77,22 +76,22 @@ public class Main2 {
         return terminal;
     }
 
-    public static void goDown(Terminal terminal, KeyStroke keyStroke) throws Exception, InterruptedException {
-        int x = 3;
-        int y = 3;
-        int counter = 0;
-        do {
-            Thread.sleep(5); // might throw InterruptedException
-            keyStroke = terminal.pollInput();
-            counter++;
-            if (counter % 50 == 0) {
-                TetT tetT = new TetT(new Positions(x, y), keyStroke);
-                tetT.printToTerminal(terminal, tetT.getPositions());
-                terminal.flush(); // required one
-                tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                y++;
-            }
-        } while (keyStroke == null);
-    }
+//    public static void goDown(Terminal terminal, KeyStroke keyStroke) throws Exception, InterruptedException {
+//        int x = 3;
+//        int y = 3;
+//        int counter = 0;
+//        do {
+//            Thread.sleep(5); // might throw InterruptedException
+//            keyStroke = terminal.pollInput();
+//            counter++;
+//            if (counter % 50 == 0) {
+//                TetT tetT = new TetT(new Positions(x, y), keyStroke);
+//                tetT.printToTerminal(terminal, tetT.getPositions());
+//                terminal.flush(); // required one
+//                tetT.eraseFromTerminal(terminal, tetT.getPositions());
+//                y++;
+//            }
+//        } while (keyStroke == null);
+//    }
 }
 
