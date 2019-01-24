@@ -17,14 +17,20 @@ public class Main2 {
         Terminal terminal = setUpTerminal();
 
         //Set initial position for first shape
-        Positions currentPosition = new Positions(3, 3);
+        Positions currentPosition = new Positions(10, 1);
 
         //Emmas stuff
         Walls.createWalls(terminal);
-        int configurationCount = 1;
+        int configurationCountT = 1;
+        int configurationCountS = 1;
+        int configurationCountI = 1;
+        int configurationCountL = 1;
 
-        TetTConfiguration config = TetTConfiguration.DOWN;
-        TetT tetT = new TetT(currentPosition, config);
+        TetTConfiguration configT = TetTConfiguration.DOWN;
+        TetSConfiguration configS = TetSConfiguration.HORIZONTAL;
+
+        TetT tetT = new TetT(currentPosition, configT);
+        TetS tetS = new TetS(currentPosition, configS);
         //Never-ending loop for movement of shapes
         while (true) {
 
@@ -35,11 +41,16 @@ public class Main2 {
 
             do {
                 if (counter % 40 == 0) {
-                    tetT = new TetT(currentPosition,config);
+//                    tetT = new TetT(currentPosition,configT);
+//                    terminal.flush();
+//                    tetT.printToTerminal(terminal, tetT.getPositions());
+//                    terminal.flush();
+//                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    tetS = new TetS(currentPosition,configS);
                     terminal.flush();
-                    tetT.printToTerminal(terminal, tetT.getPositions());
+                    tetS.printToTerminal(terminal, tetS.getPositions());
                     terminal.flush();
-                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    tetS.eraseFromTerminal(terminal, tetS.getPositions());
 
                     currentPosition.setY(currentPosition.getY()+1);
                 }
@@ -60,27 +71,40 @@ public class Main2 {
 
             switch (keyStroke.getKeyType()) {
                 case ArrowUp:
-                    //TetT tetT = new TetT(currentPosition, TetTConfiguration.LEFT);
 
-                    if (configurationCount == 1) {
-                        tetT.setsShapeLEFT(currentPosition);
-                        config = TetTConfiguration.LEFT;
-                        configurationCount++;
+//================================================================================================TetS
+                    if (configurationCountS == 1) {
+                        tetS.setsShapeLEFT(currentPosition);
+                        configS = TetSConfiguration.VERTICAL;
+                        configurationCountT++;
                     }
-                    else if (configurationCount == 2) {
-                        tetT.setsShapeUP(currentPosition);
-                        config = TetTConfiguration.UP;
-                        configurationCount++;
+                    else if (configurationCountS == 2) {
+                        tetS.setsShapeUP(currentPosition);
+                        configS = TetSConfiguration.HORIZONTAL;
+                        configurationCountT = 1;
                     }
-                    else if (configurationCount == 3) {
-                        tetT.setsShapeRIGHT(currentPosition);
-                        config = TetTConfiguration.RIGHT;
-                        configurationCount++;
+
+                    //TetT tetT = new TetT(currentPosition, TetTConfiguration.LEFT);
+//================================================================================================TetT
+                    if (configurationCountT == 1) {
+                        tetS.setsShapeLEFT(currentPosition);
+                        configT = TetTConfiguration.LEFT;
+                        configurationCountT++;
                     }
-                    else if (configurationCount == 4) {
-                        tetT.setsShapeDOWN(currentPosition);
-                        config = TetTConfiguration.DOWN;
-                        configurationCount = 1;
+                    else if (configurationCountT == 2) {
+                        tetS.setsShapeUP(currentPosition);
+                        configT = TetTConfiguration.UP;
+                        configurationCountT++;
+                    }
+                    else if (configurationCountT == 3) {
+                        tetS.setsShapeRIGHT(currentPosition);
+                        configT = TetTConfiguration.RIGHT;
+                        configurationCountT++;
+                    }
+                    else if (configurationCountT == 4) {
+                        tetS.setsShapeDOWN(currentPosition);
+                        configT = TetTConfiguration.DOWN;
+                        configurationCountT = 1;
                     }
 
                     break;
