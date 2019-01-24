@@ -183,12 +183,33 @@ public class Main2 {
 
                     break;
                 case ArrowDown:
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() + 1 && pos.getX() == currentPosition.getX()) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getY() - 1);
+                        }
+                    }
                     currentPosition.setY(currentPosition.getY()+1);
                     break;
                 case ArrowLeft:
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() && pos.getX() == currentPosition.getX() - 1) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getX() + 1);
+                        }
+                    }
                     currentPosition.setX(currentPosition.getX()-1);
                     break;
                 case ArrowRight:
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() && pos.getX() == currentPosition.getX() + 1) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getX() - 1);
+                        }
+                    }
                     currentPosition.setX(currentPosition.getX()+1);
                     break;
             }
