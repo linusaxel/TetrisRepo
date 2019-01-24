@@ -8,7 +8,6 @@ public class Positions {
         this.y = y;
     }
 
-
     public int getX() {
         return x;
     }
@@ -24,5 +23,4 @@ public class Positions {
     public void setY(int y) {
         this.y = y;
     }
-
 }
