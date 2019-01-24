@@ -20,16 +20,16 @@ public class Main2 {
 
             int counter = 0;
             do {
-                Thread.sleep(5); // might throw InterruptedException
+                Thread.sleep(400); // might throw InterruptedException
                 keyStroke = terminal.pollInput();
-                counter++;
-                if (counter % 50 == 0) {
+//                counter++;
+//                if (counter % 50 == 0) {
                     TetT tetT = new TetT(new Positions(x, y), terminal);
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush(); // required one
                     tetT.eraseFromTerminal(terminal, tetT.getPositions());
                     y++;
-                }
+                //}
             } while (keyStroke == null);
             //While no input from user, shape keeps going down
             //goDown(terminal, keyStroke = terminal.pollInput());
@@ -39,13 +39,17 @@ public class Main2 {
 
                     break;
                 case ArrowDown:
+                    y++;
 
                     break;
                 case ArrowLeft:
+
                     x--;
+
                     break;
                 case ArrowRight:
                     x++;
+
                     break;
             }
         }

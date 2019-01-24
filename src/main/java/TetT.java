@@ -12,6 +12,8 @@ public class TetT {
     public TetT(Positions anchor, Terminal terminal) throws IOException{
         this.anchor = anchor;
 
+    }
+    public void setsShapeUP(Positions anchor) {
         Positions positionOne = new Positions(this.anchor.getX()-1, this.anchor.getY());
         Positions positionTwo = new Positions(this.anchor.getX() +1, this.anchor.getY());
         Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY()+1);
