@@ -19,21 +19,11 @@ public class TetI extends Tetromino{
     }
 
     public void setsShapeVERTICAL(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
 
-        Positions[] positionsVERTICAL = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsVERTICAL;
     }
 
     public void setsShapeHORIZONTAL(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
 
-        Positions[] positionsHORIZONTAL = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsHORIZONTAL;
     }
 
 }
