@@ -18,7 +18,7 @@ public class Main2 {
 
         //Set initial position for first shape
         Positions currentPosition = new Positions(10, 1);
-
+        ArrayList<Positions> walls = Walls.getWalls();
         //Emmas stuff
         Walls.createWalls(terminal);
         int configurationCountS = 1;
@@ -30,7 +30,7 @@ public class Main2 {
         TetOConfiguration configO = TetOConfiguration.UP;
         TetLConfiguration configL = TetLConfiguration.RIGHT;
         TetIConfiguration configI = TetIConfiguration.HORIZONTAL;
-        TetTConfiguration configT = TetTConfiguration.UP;
+        TetTConfiguration configT = TetTConfiguration.DOWN;
 
 
 
@@ -51,11 +51,18 @@ public class Main2 {
 
             do {
                 if (counter % 40 == 0) {
-//                    tetT = new TetT(currentPosition,configT);
-//                    terminal.flush();
-//                    tetT.printToTerminal(terminal, tetT.getPositions());
-//                    terminal.flush();
-//                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    tetT = new TetT(currentPosition,configT);
+                    terminal.flush();
+                    tetT.printToTerminal(terminal, tetT.getPositions());
+                    terminal.flush();
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() + 1 && pos.getX() == currentPosition.getX()) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getY() - 1);
+                        }
+                    }
+
 
 //                    tetS = new TetS(currentPosition,configS);
 //                    terminal.flush();
@@ -63,11 +70,11 @@ public class Main2 {
 //                    terminal.flush();
 //                    tetS.eraseFromTerminal(terminal, tetS.getPositions());
 
-                    tetO = new TetO(currentPosition,configO);
-                    terminal.flush();
-                    tetO.printToTerminal(terminal, tetO.getPositions());
-                    terminal.flush();
-                    tetO.eraseFromTerminal(terminal, tetO.getPositions());
+//                    tetO = new TetO(currentPosition,configO);
+//                    terminal.flush();
+//                    tetO.printToTerminal(terminal, tetO.getPositions());
+//                    terminal.flush();
+//                    tetO.eraseFromTerminal(terminal, tetO.getPositions());
 
 //                    tetL = new TetL(currentPosition,configL);
 //                    terminal.flush();

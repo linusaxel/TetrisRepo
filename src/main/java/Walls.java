@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Walls  {
+    static ArrayList<Positions> walls = new ArrayList<>();
 
     public static void createWalls (Terminal terminal) throws Exception{
 
@@ -12,7 +13,7 @@ public class Walls  {
         final char block = '\u2588';
 
 
-        ArrayList<Positions> walls = new ArrayList<>();
+
         int x = 0;
         int y = 0;
         Positions position = new Positions(x, y);
@@ -162,5 +163,8 @@ public class Walls  {
         }
     }
 
+    public static ArrayList<Positions> getWalls() {
+        return walls;
+    }
 }
 
