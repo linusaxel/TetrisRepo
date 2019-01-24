@@ -1,11 +1,15 @@
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 
+import javax.swing.text.Position;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, Exception {
         runTetris();
     }
 
@@ -34,6 +38,8 @@ public class Main {
         } while (keyStroke == null);
         con.exit();
 
+        Walls walls = new Walls();
+        walls.createWalls();
     }
 }
 
