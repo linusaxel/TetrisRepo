@@ -3,6 +3,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.security.Key;
 
 public class Main2 {
 
@@ -12,14 +13,33 @@ public class Main2 {
         Terminal terminal = terminalFactory.createTerminal();
         terminal.setCursorVisible(false);
 
-        //Takes input as keystroke
-        KeyStroke keyStroke = terminal.pollInput();
+        //Creates keystroke object, declares it as null
+        KeyStroke keyStroke = null;
 
+        //While no input from user, shape keeps going down
+        goDown(terminal, keyStroke = terminal.pollInput());
+
+        switch (keyStroke.getKeyType()) {
+            case ArrowUp:
+
+                break;
+            case ArrowDown:
+
+                break;
+            case ArrowLeft:
+                System.out.println("lskdjf");
+                break;
+            case ArrowRight:
+
+                break;
+        }
+
+        goDown(terminal, keyStroke = terminal.pollInput());
+    }
+
+    public static void goDown(Terminal terminal, KeyStroke keyStroke) throws IOException, InterruptedException {
         int x = 3;
         int y = 3;
-
-        //While no input from user, keep doing this loop
-        keyStroke = null;
         int counter = 0;
         do {
             Thread.sleep(5); // might throw InterruptedException
@@ -33,22 +53,5 @@ public class Main2 {
                 y++;
             }
         } while (keyStroke == null);
-
-        switch (keyStroke.getKeyType()) {
-            case ArrowUp:
-
-                break;
-            case ArrowDown:
-
-                break;
-            case ArrowLeft:
-
-                break;
-            case ArrowRight:
-
-                break;
-        }
-
-
     }
 }
