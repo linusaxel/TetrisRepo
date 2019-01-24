@@ -12,12 +12,12 @@ public class Main2 {
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         Terminal terminal = terminalFactory.createTerminal();
         terminal.setCursorVisible(false);
-
+        int x = 3;
+        int y = 3;
         while(true) {
             //Creates keystroke object, declares it as null
             KeyStroke keyStroke = null;
-            int x = 3;
-            int y = 3;
+
             int counter = 0;
             do {
                 Thread.sleep(5); // might throw InterruptedException
@@ -42,14 +42,12 @@ public class Main2 {
 
                     break;
                 case ArrowLeft:
-                    System.out.println("lskdjf");
+                    x--;
                     break;
                 case ArrowRight:
-
+                    x++;
                     break;
             }
-
-            goDown(terminal, keyStroke = terminal.pollInput());
         }
     }
 
