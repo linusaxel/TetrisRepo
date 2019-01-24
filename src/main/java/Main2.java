@@ -25,31 +25,30 @@ public class Main2 {
             Thread.sleep(5); // might throw InterruptedException
             keyStroke = terminal.pollInput();
             counter++;
-            for (counter == 100) {
+            if (counter % 50 == 0) {
                 TetT tetT = new TetT(new Positions(x, y), terminal);
                 tetT.printToTerminal(terminal, tetT.getPositions());
                 terminal.flush(); // required one
-                Thread.sleep(500);
-                terminal.flush();
                 tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                terminal.flush();
                 y++;
-                terminal.flush();
             }
         } while (keyStroke == null);
 
+        switch (keyStroke.getKeyType()) {
+            case ArrowUp:
 
-        //Positions anchor = new Positions(3, 3);
+                break;
+            case ArrowDown:
 
+                break;
+            case ArrowLeft:
 
+                break;
+            case ArrowRight:
 
+                break;
+        }
 
-
-
-//        TetT tetT2 = new TetT(new Positions(3, 7), terminal);
-
-
-        terminal.flush();
 
     }
 }
