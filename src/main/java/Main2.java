@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -24,7 +25,7 @@ public class Main2 {
 
         //Set initial position for first shape
         Positions currentPosition = new Positions(10, 1);
-
+        ArrayList<Positions> walls = Walls.getWalls();
         //Emmas stuff
         Walls.createWalls(terminal);
         int configurationCountS = 1;
@@ -36,15 +37,15 @@ public class Main2 {
         TetOConfiguration configO = TetOConfiguration.UP;
         TetLConfiguration configL = TetLConfiguration.RIGHT;
         TetIConfiguration configI = TetIConfiguration.HORIZONTAL;
-        TetTConfiguration configT = TetTConfiguration.UP;
+        TetTConfiguration configT = TetTConfiguration.DOWN;
 
 
 
-        TetT tetT = new TetT(currentPosition, configT);
-        TetS tetS = new TetS(currentPosition, configS);
-        TetO tetO = new TetO(currentPosition, configO);
-        TetL tetL = new TetL(currentPosition, configL);
-        TetI tetI = new TetI(currentPosition, configI);
+        TetT tetT = new TetT(currentPosition, configT, TextColor.ANSI.GREEN);
+        TetS tetS = new TetS(currentPosition, configS, TextColor.ANSI.WHITE);
+        TetO tetO = new TetO(currentPosition, configO, TextColor.ANSI.YELLOW);
+        TetL tetL = new TetL(currentPosition, configL, TextColor.ANSI.MAGENTA);
+        TetI tetI = new TetI(currentPosition, configI, TextColor.ANSI.RED);
 
 
         //Never-ending loop for movement of shapes
@@ -57,11 +58,18 @@ public class Main2 {
 
             do {
                 if (counter % 40 == 0) {
-//                    tetT = new TetT(currentPosition,configT);
-//                    terminal.flush();
-//                    tetT.printToTerminal(terminal, tetT.getPositions());
-//                    terminal.flush();
-//                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    tetT = new TetT(currentPosition, configT, TextColor.ANSI.GREEN);
+                    terminal.flush();
+                    tetT.printToTerminal(terminal, tetT.getPositions());
+                    terminal.flush();
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() + 1 && pos.getX() == currentPosition.getX()) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getY() - 1);
+                        }
+                    }
+
 
 //                    tetS = new TetS(currentPosition,configS);
 //                    terminal.flush();
@@ -69,11 +77,11 @@ public class Main2 {
 //                    terminal.flush();
 //                    tetS.eraseFromTerminal(terminal, tetS.getPositions());
 
-                    tetO = new TetO(currentPosition,configO);
-                    terminal.flush();
-                    tetO.printToTerminal(terminal, tetO.getPositions());
-                    terminal.flush();
-                    tetO.eraseFromTerminal(terminal, tetO.getPositions());
+//                    tetO = new TetO(currentPosition,configO);
+//                    terminal.flush();
+//                    tetO.printToTerminal(terminal, tetO.getPositions());
+//                    terminal.flush();
+//                    tetO.eraseFromTerminal(terminal, tetO.getPositions());
 
 //                    tetL = new TetL(currentPosition,configL);
 //                    terminal.flush();
@@ -182,12 +190,33 @@ public class Main2 {
 
                     break;
                 case ArrowDown:
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() + 1 && pos.getX() == currentPosition.getX()) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getY() - 1);
+                        }
+                    }
                     currentPosition.setY(currentPosition.getY()+1);
                     break;
                 case ArrowLeft:
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() && pos.getX() == currentPosition.getX() - 1) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getX() + 1);
+                        }
+                    }
                     currentPosition.setX(currentPosition.getX()-1);
                     break;
                 case ArrowRight:
+                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
+                    for (Positions pos : walls) {
+                        if (pos.getY() == currentPosition.getY() && pos.getX() == currentPosition.getX() + 1) {
+                            tetT.printToTerminal(terminal, tetT.getPositions());
+                            currentPosition.setY(currentPosition.getX() - 1);
+                        }
+                    }
                     currentPosition.setX(currentPosition.getX()+1);
                     break;
             }
