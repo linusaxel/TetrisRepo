@@ -8,8 +8,12 @@ import java.io.IOException;
 
 public class TetT extends Tetromino{
     private TetTConfiguration configuration;
+    private Positions positionOne;
+    private Positions positionTwo;
+    private Positions positionThree;
 
-    public TetT(Positions anchor, TetTConfiguration configuration, TextColor color) throws Exception {
+
+    public TetT(Positions anchor, TetTConfiguration configuration, TextColor color) {
         super(anchor, color);
         this.configuration = configuration;
 
@@ -28,39 +32,35 @@ public class TetT extends Tetromino{
     }
 
     public void setsShapeDOWN(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-
+        positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
+        positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
         Positions[] positionsDOWN = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsDOWN;
+        super.positions = positionsDOWN;
     }
 
     public void setsShapeLEFT(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
-        Positions positionTwo = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-
+        positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
+        positionTwo = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
         Positions[] positionsLEFT = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsLEFT;
+        super.positions = positionsLEFT;
     }
 
     public void setsShapeUP(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        Positions positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
-        Positions positionThree = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-
+        positionOne = new Positions(this.anchor.getX() + 1, this.anchor.getY());
+        positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
+        positionThree = new Positions(this.anchor.getX() - 1, this.anchor.getY());
         Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsUP;
+        super.positions = positionsUP;
     }
 
     public void setsShapeRIGHT(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-        Positions positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
-
+        positionOne = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
+        positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
+        positionThree = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
         Positions[] positionsRIGHT = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsRIGHT;
+        super.positions = positionsRIGHT;
     }
 
     public Positions getAnchor() {
@@ -78,5 +78,34 @@ public class TetT extends Tetromino{
     public void setPositions(Positions[] positions) {
         this.positions = positions;
     }
+
+
+    public void eraseFromTerminal(Terminal terminal, Positions[] positions) throws IOException {
+        for (Positions position : positions) {
+            terminal.setCursorPosition(position.getX(), position.getY());
+            terminal.putCharacter(' ');
+        }
+    }
+
+    public Positions getPositionOne() {
+        return positionOne;
+    }
+
+    public Positions getPositionTwo() {
+        return positionTwo;
+    }
+
+    public Positions getPositionThree() {
+        return positionThree;
+    }
+
+    public TetTConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(TetTConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
 
 }

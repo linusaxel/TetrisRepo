@@ -1,7 +1,15 @@
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.terminal.Terminal;
+
+import java.io.IOException;
 
 public class TetS extends Tetromino {
     private TetSConfiguration configuration;
+    private Positions positionOne;
+    private Positions positionTwo;
+    private Positions positionThree;
+
+
 
     public TetS(Positions anchor, TetSConfiguration configuration, TextColor color) {
         super(anchor, color);
@@ -15,21 +23,21 @@ public class TetS extends Tetromino {
     }
 
     public void setsShapeHORIZONTAL(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-        Positions positionThree = new Positions(this.anchor.getX() + 1, this.anchor.getY() + 1);
+        positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
+        positionThree = new Positions(this.anchor.getX() + 1, this.anchor.getY() + 1);
 
         Positions[] positionsHORIZONTAL = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsHORIZONTAL;
+        super.positions = positionsHORIZONTAL;
     }
 
     public void setsShapeVERTICAL(Positions anchor) {
-        Positions positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
-        Positions positionTwo = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions positionThree = new Positions(this.anchor.getX() - 1, this.anchor.getY() + 1);
+        positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
+        positionTwo = new Positions(this.anchor.getX() - 1, this.anchor.getY());
+        positionThree = new Positions(this.anchor.getX() - 1, this.anchor.getY() + 1);
 
         Positions[] positionsVERTCAL = {anchor, positionOne, positionTwo, positionThree};
-        this.positions = positionsVERTCAL;
+        super.positions = positionsVERTCAL;
     }
 
     public Positions[] getPositions() {
@@ -38,5 +46,40 @@ public class TetS extends Tetromino {
 
     public void setPositions(Positions[] positions) {
         this.positions = positions;
+    }
+
+    public Positions getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(Positions anchor) {
+        this.anchor = anchor;
+    }
+
+    public void eraseFromTerminal(Terminal terminal, Positions[] positions) throws IOException {
+        for (Positions position : positions) {
+            terminal.setCursorPosition(position.getX(), position.getY());
+            terminal.putCharacter(' ');
+        }
+    }
+
+    public Positions getPositionOne() {
+        return positionOne;
+    }
+
+    public Positions getPositionTwo() {
+        return positionTwo;
+    }
+
+    public Positions getPositionThree() {
+        return positionThree;
+    }
+
+    public TetSConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(TetSConfiguration configuration) {
+        this.configuration = configuration;
     }
 }

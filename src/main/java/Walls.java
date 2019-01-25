@@ -2,18 +2,17 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Walls  {
-    static ArrayList<Positions> walls = new ArrayList<>();
+public class Walls {
 
-    public static void createWalls (Terminal terminal) throws Exception{
+    public static ArrayList<Positions> createWalls(Terminal terminal) throws Exception {
 
         //instantiating block char
         final char block = '\u2588';
 
-
-
+        ArrayList<Positions> walls = new ArrayList<>();
         int x = 0;
         int y = 0;
         //Positions position = new Positions(x, y);
@@ -55,8 +54,6 @@ public class Walls  {
             terminal.putCharacter(block);
             y--;
             walls.add(new Positions(x, y));
-
-
         }
 
 //Next figure board
@@ -75,9 +72,9 @@ public class Walls  {
             s++;
             walls2.add(new Positions(s, t));
             //walls.add(position);
-
         }
-//for wall bottom right to left horizontally
+
+        //for wall bottom right to left horizontally
         s = 36;
         t = 10;
         for (int i = 20; i < 36; i++) {
@@ -161,10 +158,8 @@ public class Walls  {
                 }
             }
         }
-    }
-
-    public static ArrayList<Positions> getWalls() {
         return walls;
     }
+
 }
 

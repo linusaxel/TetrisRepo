@@ -3,229 +3,219 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.io.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class Main2 {
 
+
+    static Positions[] line1 = new Positions[19];
+    static Positions[] line2 = new Positions[19];
+    static Positions[] line3 = new Positions[19];
+    static Positions[] line4 = new Positions[19];
+    static Positions[] line5 = new Positions[19];
+    static Positions[] line6 = new Positions[19];
+    static Positions[] line7 = new Positions[19];
+    static Positions[] line8 = new Positions[19];
+    static Positions[] line9 = new Positions[19];
+    static Positions[] line10 = new Positions[19];
+    static Positions[] line11 = new Positions[19];
+    static Positions[] line12 = new Positions[19];
+    static Positions[] line13 = new Positions[19];
+    static Positions[] line14 = new Positions[19];
+    static Positions[] line15 = new Positions[19];
+    static Positions[] line16 = new Positions[19];
+    static Positions[] line17 = new Positions[19];
+    static Positions[] line18 = new Positions[19];
+    static Positions[] line19 = new Positions[19];
+    static final char block = '\u2588';
+
+
+    static Positions[][] allLines = {line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16, line17, line18, line19};
+
     public static void main(String[] args) throws NullPointerException, Exception, IOException, InterruptedException {
-        runTetris();
-    }
-
-
-    private static void runTetris () throws Exception, IOException, InterruptedException {
-
-        //Setting up terminal, hides cursor
-        Terminal terminal = setUpTerminal();
 
         MP3Player m = new MP3Player();
         m.play("Tetris+Official+Theme+song.mp3", true);
 
+        //Setting up terminal, hides cursor
+        Terminal terminal = setUpTerminal();
 
-        //Set initial position for first shape
-        Positions currentPosition = new Positions(10, 1);
-        ArrayList<Positions> walls = Walls.getWalls();
-        //Emmas stuff
-        Walls.createWalls(terminal);
-        int configurationCountS = 1;
-        int configurationCountI = 1;
-        int configurationCountL = 1;
-        int configurationCountT = 1;
+        do {
+            //Calling main game method
+            runTetris(terminal);
+//            checkIfGameOver(terminal);
+        } while (true);
 
-        TetSConfiguration configS = TetSConfiguration.HORIZONTAL;
-        TetOConfiguration configO = TetOConfiguration.UP;
-        TetLConfiguration configL = TetLConfiguration.RIGHT;
-        TetIConfiguration configI = TetIConfiguration.HORIZONTAL;
-        TetTConfiguration configT = TetTConfiguration.DOWN;
+//        System.out.println("GAME OVER");
+//        System.exit(0);
+    }
 
+    private static void runTetris(Terminal terminal) throws Exception, IOException, InterruptedException {
 
-
-        TetT tetT = new TetT(currentPosition, configT, TextColor.ANSI.GREEN);
-        TetS tetS = new TetS(currentPosition, configS, TextColor.ANSI.WHITE);
-        TetO tetO = new TetO(currentPosition, configO, TextColor.ANSI.YELLOW);
-        TetL tetL = new TetL(currentPosition, configL, TextColor.ANSI.MAGENTA);
-        TetI tetI = new TetI(currentPosition, configI, TextColor.ANSI.RED);
+        //Prints walls AND stores positions of walls in an ArrayList of positions
+        ArrayList<Positions> walls = Walls.createWalls(terminal);
 
 
-        //Never-ending loop for movement of shapes
         while (true) {
+            Positions currentPosition = new Positions(10, 1);
+            //Creates a random tetromino (S, O, T, I or L type)
+            Tetromino tetromino = createNewTetromino(currentPosition);
 
-            //Creates keystroke object, declares it as null
-            KeyStroke keyStroke;
 
-            int counter = 0;
 
-            do {
-                if (counter % 40 == 0) {
-                    tetT = new TetT(currentPosition, configT, TextColor.ANSI.GREEN);
-                    terminal.flush();
-                    tetT.printToTerminal(terminal, tetT.getPositions());
-                    terminal.flush();
-                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                    for (Positions pos : walls) {
-                        if (pos.getY() == currentPosition.getY() + 1 && pos.getX() == currentPosition.getX()) {
-                            tetT.printToTerminal(terminal, tetT.getPositions());
-                            currentPosition.setY(currentPosition.getY() - 1);
+            //Counter used to change configuration (orientation) of shapes
+            int configurationCount = 1;
+
+            boolean tetKeepsMoving = true;
+
+            while (tetKeepsMoving) {
+
+                //Creates keystroke object, declares it as null
+                KeyStroke keyStroke;
+
+                int counter = 0;
+
+                do {
+                    //Downwards movement of shapes
+                    if (counter % 30 == 0) {
+                        terminal.flush();
+                        tetromino.printToTerminal(terminal, tetromino.getPositions());
+                        terminal.flush();
+
+                        tetromino.eraseFromTerminal(terminal, tetromino.getPositions());
+                        if (checkIfTetHitsBottom(tetromino.getPositions(), walls)) {
+                            storeTetPositions(tetromino.getPositions(), allLines);
+//                            printLines(terminal, allLines);
+
+                            tetKeepsMoving = false;
+                        } else {
+                            tetromino.goDown(tetromino.getPositions());
                         }
                     }
 
+                    Thread.sleep(10);
+                    keyStroke = terminal.pollInput();
+                    counter++;
+//                    if (tetKeepsMoving = false) {
+//                        break;
+//                    }
+                } while (keyStroke == null);
 
-//                    tetS = new TetS(currentPosition,configS);
-//                    terminal.flush();
-//                    tetS.printToTerminal(terminal, tetS.getPositions());
-//                    terminal.flush();
-//                    tetS.eraseFromTerminal(terminal, tetS.getPositions());
+                switch (keyStroke.getKeyType()) {
+                    case ArrowUp:
+                        if (tetromino instanceof TetT) {
+                            TetT tetT = (TetT) tetromino;
+                            if (configurationCount == 1){
+                                tetT.setsShapeLEFT(currentPosition);
+                                tetT.setConfiguration(TetTConfiguration.LEFT);
+                                configurationCount++;
+                            } else if (configurationCount == 2) {
+                                tetT.setsShapeUP(currentPosition);
+                                tetT.setConfiguration(TetTConfiguration.UP);
+                                configurationCount++;
+                            } else if (configurationCount == 3) {
+                                tetT.setsShapeRIGHT(currentPosition);
+                                tetT.setConfiguration(TetTConfiguration.RIGHT);
+                                configurationCount++;
+                            } else if (configurationCount == 4) {
+                                tetT.setsShapeDOWN(currentPosition);
+                                tetT.setConfiguration(TetTConfiguration.DOWN);
+                                configurationCount = 1;
+                            }
+                        } else if (tetromino instanceof TetS) {
+                            TetS tetS = (TetS) tetromino;
+                            if (configurationCount == 1){
+                                tetS.setsShapeVERTICAL(currentPosition);
+                                tetS.setConfiguration(TetSConfiguration.VERTICAL);
+                                configurationCount++;
+                            } else if (configurationCount == 2) {
+                                tetS.setsShapeHORIZONTAL(currentPosition);
+                                tetS.setConfiguration(TetSConfiguration.HORIZONTAL);
+                                configurationCount = 1;
+                            }
+                        } else if (tetromino instanceof TetL) {
+                            TetL tetL = (TetL) tetromino;
+                            if (configurationCount == 1){
+                                tetL.setsShapeDOWN(currentPosition);
+                                tetL.setConfiguration(TetLConfiguration.DOWN);
+                                configurationCount++;
+                            } else if (configurationCount == 2) {
+                                tetL.setsShapeLEFT(currentPosition);
+                                tetL.setConfiguration(TetLConfiguration.LEFT);
+                                configurationCount++;
+                            } else if (configurationCount == 3) {
+                                tetL.setsShapeUP(currentPosition);
+                                tetL.setConfiguration(TetLConfiguration.UP);
+                                configurationCount++;
+                            } else if (configurationCount == 4) {
+                                tetL.setsShapeRIGHT(currentPosition);
+                                tetL.setConfiguration(TetLConfiguration.RIGHT);
+                                configurationCount = 1;
+                            }
+                        } else if (tetromino instanceof TetI) {
+                            TetI tetI = (TetI) tetromino;
+                            if (configurationCount == 1){
+                                tetI.setsShapeHORIZONTAL(currentPosition);
+                                tetI.setConfiguration(TetIConfiguration.HORIZONTAL);
+                                configurationCount++;
+                            } else if (configurationCount == 2) {
+                                tetI.setsShapeVERTICAL(currentPosition);
+                                tetI.setConfiguration(TetIConfiguration.VERTICAL);
+                                configurationCount = 1;
+                            }
+                        }
+                        break;
+                    case ArrowDown:
+                        tetromino.eraseFromTerminal(terminal, tetromino.getPositions());
 
-//                    tetO = new TetO(currentPosition,configO);
-//                    terminal.flush();
-//                    tetO.printToTerminal(terminal, tetO.getPositions());
-//                    terminal.flush();
-//                    tetO.eraseFromTerminal(terminal, tetO.getPositions());
-
-//                    tetL = new TetL(currentPosition,configL);
-//                    terminal.flush();
-//                    tetL.printToTerminal(terminal, tetL.getPositions());
-//                    terminal.flush();
-//                    tetL.eraseFromTerminal(terminal, tetL.getPositions());
-
-//                    tetI = new TetI(currentPosition,configI);
-//                    terminal.flush();
-//                    tetI.printToTerminal(terminal, tetI.getPositions());
-//                    terminal.flush();
-//                    tetI.eraseFromTerminal(terminal, tetI.getPositions());
-
-                    currentPosition.setY(currentPosition.getY()+1);
+                        if (checkIfTetHitsBottom(tetromino.getPositions(), walls)) {
+                            storeTetPositions(tetromino.getPositions(), allLines);
+                            tetKeepsMoving = false;
+                        } else {
+                            tetromino.goDown(tetromino.getPositions());
+                        }
+                        break;
+                    case ArrowLeft:
+                        if (!checkIfTetHitsLeftWall(tetromino.getPositions(), walls)) {
+                            tetromino.goLeft(tetromino.getPositions());
+                        }
+                        break;
+                    case ArrowRight:
+                        if (!checkIfTetHitsRightWall(tetromino.getPositions(), walls)) {
+                            tetromino.goRight(tetromino.getPositions());
+                        }
+                        break;
                 }
-
-                Thread.sleep(10);
-                keyStroke = terminal.pollInput();
-                counter++;
-
-
-            } while (keyStroke == null);
-
-
-
-            //While no input from user, shape keeps going down
-            //goDown(terminal, keyStroke = terminal.pollInput());
-
-
-
-            switch (keyStroke.getKeyType()) {
-                case ArrowUp:
-
-//================================================================================================TetO
-
-//================================================================================================TetL
-                    if (configurationCountL == 1) {
-                        tetT.setsShapeLEFT(currentPosition);
-                        configL = TetLConfiguration.DOWN;
-                        configurationCountL++;
-                    }
-                    else if (configurationCountL == 2) {
-                        tetT.setsShapeUP(currentPosition);
-                        configL = TetLConfiguration.LEFT;
-                        configurationCountL++;
-                    }
-                    else if (configurationCountL == 3) {
-                        tetT.setsShapeRIGHT(currentPosition);
-                        configL = TetLConfiguration.UP;
-                        configurationCountL++;
-                    }
-                    else if (configurationCountL == 4) {
-                        tetT.setsShapeDOWN(currentPosition);
-                        configL = TetLConfiguration.RIGHT;
-                        configurationCountL = 1;
-                    }
-
-
-//================================================================================================TetI
-                    if (configurationCountI == 1) {
-                        tetI.setsShapeVERTICAL(currentPosition);
-                        configI = TetIConfiguration.VERTICAL;
-                        configurationCountI++;
-                    }
-                    else if (configurationCountI == 2) {
-                        tetI.setsShapeHORIZONTAL(currentPosition);
-                        configI = TetIConfiguration.HORIZONTAL;
-                        configurationCountI = 1;
-                    }
-
-
-//================================================================================================TetS
-                    if (configurationCountS == 1) {
-                        tetS.setsShapeVERTICAL(currentPosition);
-                        configS = TetSConfiguration.VERTICAL;
-                        configurationCountS++;
-                    }
-                    else if (configurationCountS == 2) {
-                        tetS.setsShapeHORIZONTAL(currentPosition);
-                        configS = TetSConfiguration.HORIZONTAL;
-                        configurationCountS = 1;
-                    }
-
-                    //TetT tetT = new TetT(currentPosition, TetTConfiguration.LEFT);
-//================================================================================================TetT
-                    if (configurationCountT == 1) {
-                        tetT.setsShapeLEFT(currentPosition);
-                        configT = TetTConfiguration.LEFT;
-                        configurationCountT++;
-                    }
-                    else if (configurationCountT == 2) {
-                        tetT.setsShapeUP(currentPosition);
-                        configT = TetTConfiguration.UP;
-                        configurationCountT++;
-                    }
-                    else if (configurationCountT == 3) {
-                        tetT.setsShapeRIGHT(currentPosition);
-                        configT = TetTConfiguration.RIGHT;
-                        configurationCountT++;
-                    }
-                    else if (configurationCountT == 4) {
-                        tetT.setsShapeDOWN(currentPosition);
-                        configT = TetTConfiguration.DOWN;
-                        configurationCountT = 1;
-                    }
-
-                    break;
-                case ArrowDown:
-                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                    for (Positions pos : walls) {
-                        if (pos.getY() == currentPosition.getY() + 1 && pos.getX() == currentPosition.getX()) {
-                            tetT.printToTerminal(terminal, tetT.getPositions());
-                            currentPosition.setY(currentPosition.getY() - 1);
-                        }
-                    }
-                    currentPosition.setY(currentPosition.getY()+1);
-                    break;
-                case ArrowLeft:
-                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                    for (Positions pos : walls) {
-                        if (pos.getY() == currentPosition.getY() && pos.getX() == currentPosition.getX() - 1) {
-                            tetT.printToTerminal(terminal, tetT.getPositions());
-                            currentPosition.setY(currentPosition.getX() + 1);
-                        }
-                    }
-                    currentPosition.setX(currentPosition.getX()-1);
-                    break;
-                case ArrowRight:
-                    tetT.eraseFromTerminal(terminal, tetT.getPositions());
-                    for (Positions pos : walls) {
-                        if (pos.getY() == currentPosition.getY() && pos.getX() == currentPosition.getX() + 1) {
-                            tetT.printToTerminal(terminal, tetT.getPositions());
-                            currentPosition.setY(currentPosition.getX() - 1);
-                        }
-                    }
-                    currentPosition.setX(currentPosition.getX()+1);
-                    break;
             }
-
-
         }
 
+    }
 
+    private static Tetromino createNewTetromino(Positions currentPosition) throws Exception {
+        int randomTetronimo = new Random().nextInt(5);
+
+        if (randomTetronimo == 0) {
+            return new TetT(currentPosition, TetTConfiguration.DOWN, TextColor.ANSI.GREEN);
+        } else if (randomTetronimo == 1) {
+            return new TetS(currentPosition, TetSConfiguration.HORIZONTAL, TextColor.ANSI.WHITE);
+        } else if (randomTetronimo == 2) {
+            return new TetO(currentPosition, TetOConfiguration.UP, TextColor.ANSI.YELLOW);
+        } else if (randomTetronimo == 3) {
+            return new TetL(currentPosition, TetLConfiguration.RIGHT, TextColor.ANSI.MAGENTA);
+        } else {
+            return new TetI(currentPosition, TetIConfiguration.HORIZONTAL, TextColor.ANSI.RED);
+        }
     }
 
     public static Terminal setUpTerminal() throws IOException {
@@ -235,26 +225,55 @@ public class Main2 {
         return terminal;
     }
 
-//    public void checkIfEmpty(Terminal terminal, ArrayList<Positions> wall, Tetronimo) {
-//        if ()
-//    }
+    public static boolean checkIfTetHitsLeftWall(Positions[] tetPositions, ArrayList<Positions> wall) {
+        for (Positions position : tetPositions) {
+            for (Positions wallPositions : wall) {
+                if ((position.getY() == wallPositions.getY() && position.getX() - 1 == wallPositions.getX()))
+                    return true;
+            }
+        }
+        return false;
+    }
 
-//    public static void goDown(Terminal terminal, KeyStroke keyStroke) throws Exception, InterruptedException {
-//        int x = 3;
-//        int y = 3;
-//        int counter = 0;
-//        do {
-//            Thread.sleep(5); // might throw InterruptedException
-//            keyStroke = terminal.pollInput();
-//            counter++;
-//            if (counter % 50 == 0) {
-//                TetT tetT = new TetT(new Positions(x, y), keyStroke);
-//                tetT.printToTerminal(terminal, tetT.getPositions());
-//                terminal.flush(); // required one
-//                tetT.eraseFromTerminal(terminal, tetT.getPositions());
-//                y++;
-//            }
-//        } while (keyStroke == null);
-//    }
+    public static boolean checkIfTetHitsRightWall(Positions[] tetPositions, ArrayList<Positions> wall) {
+        for (Positions position : tetPositions) {
+            for (Positions wallPositions : wall) {
+                if ((position.getY() == wallPositions.getY() && position.getX() + 1 == wallPositions.getX()))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean checkIfTetHitsBottom(Positions[] tetPositions, ArrayList<Positions> wall) {
+        for (Positions position : tetPositions) {
+            for (Positions wallPositions : wall) {
+                if ((position.getY() + 1 == wallPositions.getY() && position.getX() == wallPositions.getX()))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public static void storeTetPositions(Positions[] tetPositions, Positions[][] allLines) {
+        for (Positions position : tetPositions) {
+            for (int i = 19; i > 0; i--) {
+                if (position.getY() == i) {
+                    allLines[i - 1][i - 1] = position;
+
+                }
+            }
+        }
+    }
+
+    public static void printLines(Terminal terminal, Positions[][] allLines) throws Exception {
+        for (Positions[] line : allLines) {
+            for (Positions position : line) {
+                terminal.setCursorPosition(position.getY(), position.getX());
+                terminal.putCharacter(block);
+            }
+        }
+    }
 }
+
 
