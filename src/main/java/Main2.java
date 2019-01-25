@@ -2,8 +2,9 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
+
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 public class Main2 {
 
@@ -11,10 +12,15 @@ public class Main2 {
         runTetris();
     }
 
+
     private static void runTetris () throws Exception, IOException, InterruptedException {
 
         //Setting up terminal, hides cursor
         Terminal terminal = setUpTerminal();
+
+        MP3Player m = new MP3Player();
+        m.play("Tetris Official Theme song.mp3", true);
+
 
         //Set initial position for first shape
         Positions currentPosition = new Positions(10, 1);

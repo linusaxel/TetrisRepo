@@ -20,7 +20,7 @@ public class Main3 {
         Positions currentPosition = new Positions(10, 1);
 
         //Emmas stuff
-        ArrayList<Positions> walls = Walls.getWallPositions();
+        //ArrayList<Positions> walls = Walls.getWallPositions();
         Walls.createWalls(terminal);
         int configurationCount = 1;
 
@@ -42,7 +42,7 @@ public class Main3 {
                     tetT.printToTerminal(terminal, tetT.getPositions());
                     terminal.flush();
                     tetT.eraseFromTerminal(terminal, tetT.getPositions());
-
+/*
                     for (Positions position : walls) {
                         if (position.getY() == currentPosition.getY() + 1 && position.getX() == currentPosition.getX()) {
 
@@ -59,7 +59,7 @@ public class Main3 {
 
                         }
                     }
-
+*/
 
 
                     currentPosition.setY(currentPosition.getY()+1);
