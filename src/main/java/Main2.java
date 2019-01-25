@@ -5,6 +5,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Main2 {
@@ -20,7 +21,7 @@ public class Main2 {
         Terminal terminal = setUpTerminal();
 
         MP3Player m = new MP3Player();
-        m.play("Tetris Official Theme song.mp3", true);
+        m.play("Tetris+Official+Theme+song.mp3", true);
 
 
         //Set initial position for first shape
