@@ -1,28 +1,25 @@
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Walls {
 
-    public static ArrayList<Positions> createWalls(Terminal terminal) throws Exception {
+    public static ArrayList<Position> createWalls(Terminal terminal) throws Exception {
 
         //instantiating block char
         final char block = '\u2588';
 
-        ArrayList<Positions> walls = new ArrayList<>();
+        ArrayList<Position> walls = new ArrayList<>();
         int x = 0;
         int y = 0;
-        //Positions position = new Positions(x, y);
+        //Position position = new Position(x, y);
 
         //for wall upper left to right horizontally
         for (int i = 0; i < 20; i++) {
             terminal.setCursorPosition(x, y);
             terminal.putCharacter(block);
             x++;
-            walls.add(new Positions(x, y));
+            walls.add(new Position(x, y));
 //            walls.add(position);
 
         }
@@ -33,7 +30,7 @@ public class Walls {
             terminal.setCursorPosition(x, y);
             terminal.putCharacter(block);
             x--;
-            walls.add(new Positions(x, y));
+            walls.add(new Position(x, y));
         }
 //for wall top to bottom y axis on the right side vertically
         x = 20;
@@ -42,7 +39,7 @@ public class Walls {
             terminal.setCursorPosition(x, y);
             terminal.putCharacter(block);
             y++;
-            walls.add(new Positions(x, y));
+            walls.add(new Position(x, y));
             //walls.add(position);
 
         }
@@ -53,24 +50,24 @@ public class Walls {
             terminal.setCursorPosition(x, y);
             terminal.putCharacter(block);
             y--;
-            walls.add(new Positions(x, y));
+            walls.add(new Position(x, y));
         }
 
 //Next figure board
         //instantiating block char
         //final char block2 = '\u2588';
 
-        ArrayList<Positions> walls2 = new ArrayList<>();
+        ArrayList<Position> walls2 = new ArrayList<>();
         int s = 21;
         int t = 0;
-        //Positions position2 = new Positions(s, t);
+        //Position position2 = new Position(s, t);
 
         //for wall upper left to right horizontally
         for (int i = 21; i < 36; i++) {
             terminal.setCursorPosition(s, t);
             terminal.putCharacter(block);
             s++;
-            walls2.add(new Positions(s, t));
+            walls2.add(new Position(s, t));
             //walls.add(position);
         }
 
@@ -81,7 +78,7 @@ public class Walls {
             terminal.setCursorPosition(s, t);
             terminal.putCharacter(block);
             s--;
-            walls2.add(new Positions(s, t));
+            walls2.add(new Position(s, t));
         }
 //for wall top to bottom y axis on the right side vertically
         s = 36;
@@ -90,7 +87,7 @@ public class Walls {
             terminal.setCursorPosition(s, t);
             terminal.putCharacter(block);
             t++;
-            walls2.add(new Positions(s, t));
+            walls2.add(new Position(s, t));
             //walls.add(position);
 
         }
@@ -101,7 +98,7 @@ public class Walls {
             terminal.setCursorPosition(s, t);
             terminal.putCharacter(block);
             t--;
-            walls2.add(new Positions(s, t));
+            walls2.add(new Position(s, t));
 
             String message = "Next Shape: ";
             for (int j = 0; j < message.length(); j++) {
@@ -115,10 +112,10 @@ public class Walls {
             //Score board
             //final char block3 = '\u2588';
 
-            ArrayList<Positions> walls3 = new ArrayList<>();
+            ArrayList<Position> walls3 = new ArrayList<>();
             int c = 36;
             int v = 0;
-            //Positions position3 = new Positions(c, v);
+            //Position position3 = new Position(c, v);
 
 
 //for wall bottom right to left horizontally
@@ -128,7 +125,7 @@ public class Walls {
                 terminal.setCursorPosition(c, v);
                 terminal.putCharacter(block);
                 c--;
-                walls3.add(new Positions(c, v));
+                walls3.add(new Position(c, v));
             }
 //for wall top to bottom y axis on the right side vertically
             c = 36;
@@ -137,7 +134,7 @@ public class Walls {
                 terminal.setCursorPosition(c, v);
                 terminal.putCharacter(block);
                 v++;
-                walls3.add(new Positions(c, v));
+                walls3.add(new Position(c, v));
                 //walls.add(position);
 
             }
@@ -148,7 +145,7 @@ public class Walls {
                 terminal.setCursorPosition(c, v);
                 terminal.putCharacter(block);
                 v--;
-                walls3.add(new Positions(c, v));
+                walls3.add(new Position(c, v));
 
                 message = "Score: ";
                 for (int j = 0; j < message.length(); j++) {

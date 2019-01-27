@@ -5,12 +5,12 @@ import java.io.IOException;
 
 public class TetO extends Tetromino {
     private TetOConfiguration configuration;
-    private Positions positionOne;
-    private Positions positionTwo;
-    private Positions positionThree;
+    private Position positionOne;
+    private Position positionTwo;
+    private Position positionThree;
 
 
-    public TetO(Positions anchor, TetOConfiguration configuration, TextColor color) {
+    public TetO(Position anchor, TetOConfiguration configuration, TextColor color) {
         super(anchor, color);
         this.configuration = configuration;
 
@@ -19,48 +19,48 @@ public class TetO extends Tetromino {
         }
     }
 
-    public void setsShapeUP(Positions anchor) {
-        positionOne = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-        positionThree = new Positions(this.anchor.getX() + 1, this.anchor.getY() + 1);
+    public void setsShapeUP(Position anchor) {
+        positionOne = new Position(this.anchor.getX() + 1, this.anchor.getY());
+        positionTwo = new Position(this.anchor.getX(), this.anchor.getY() + 1);
+        positionThree = new Position(this.anchor.getX() + 1, this.anchor.getY() + 1);
 
-        Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
-        super.positions = positionsUP;
+        Position[] positionUP = {anchor, positionOne, positionTwo, positionThree};
+        super.positions = positionUP;
     }
 
-    public Positions[] getPositions() {
+    public Position[] getPositions() {
         return positions;
     }
 
-    public void setPositions(Positions[] positions) {
+    public void setPositions(Position[] positions) {
         this.positions = positions;
     }
 
-    public Positions getAnchor() {
+    public Position getAnchor() {
         return anchor;
     }
 
-    public void setAnchor(Positions anchor) {
+    public void setAnchor(Position anchor) {
         this.anchor = anchor;
     }
 
 
-    public void eraseFromTerminal(Terminal terminal, Positions[] positions) throws IOException {
-        for (Positions position : positions) {
+    public void eraseFromTerminal(Terminal terminal, Position[] positions) throws IOException {
+        for (Position position : positions) {
             terminal.setCursorPosition(position.getX(), position.getY());
             terminal.putCharacter(' ');
         }
     }
 
-    public Positions getPositionOne() {
+    public Position getPositionOne() {
         return positionOne;
     }
 
-    public Positions getPositionTwo() {
+    public Position getPositionTwo() {
         return positionTwo;
     }
 
-    public Positions getPositionThree() {
+    public Position getPositionThree() {
         return positionThree;
     }
 

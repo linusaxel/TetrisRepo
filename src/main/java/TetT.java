@@ -1,19 +1,17 @@
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.input.KeyStroke;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class TetT extends Tetromino{
     private TetTConfiguration configuration;
-    private Positions positionOne;
-    private Positions positionTwo;
-    private Positions positionThree;
+    private TetTConfiguration futureConfiguration;
+    private int configurationCount = 1;
+    private Position positionOne;
+    private Position positionTwo;
+    private Position positionThree;
 
-
-    public TetT(Positions anchor, TetTConfiguration configuration, TextColor color) {
+    public TetT(Position anchor, TetTConfiguration configuration, TextColor color) {
         super(anchor, color);
         this.configuration = configuration;
 
@@ -28,74 +26,80 @@ public class TetT extends Tetromino{
         else if (configuration == TetTConfiguration.LEFT) {
             setsShapeLEFT(this.anchor);
         }
-
     }
 
-    public void setsShapeDOWN(Positions anchor) {
-        positionOne = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-        Positions[] positionsDOWN = {anchor, positionOne, positionTwo, positionThree};
-        super.positions = positionsDOWN;
+    public void setsShapeDOWN(Position anchor) {
+        positionOne = new Position(this.anchor.getX() - 1, this.anchor.getY());
+        positionTwo = new Position(this.anchor.getX() + 1, this.anchor.getY());
+        positionThree = new Position(this.anchor.getX(), this.anchor.getY() + 1);
+        Position[] positionDOWN = {anchor, positionOne, positionTwo, positionThree};
+        super.positions = positionDOWN;
     }
 
-    public void setsShapeLEFT(Positions anchor) {
-        positionOne = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
-        positionTwo = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        positionThree = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-        Positions[] positionsLEFT = {anchor, positionOne, positionTwo, positionThree};
-        super.positions = positionsLEFT;
+    public TetTConfiguration getFutureConfiguration() {
+        return futureConfiguration;
     }
 
-    public void setsShapeUP(Positions anchor) {
-        positionOne = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        positionTwo = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
-        positionThree = new Positions(this.anchor.getX() - 1, this.anchor.getY());
-        Positions[] positionsUP = {anchor, positionOne, positionTwo, positionThree};
-        super.positions = positionsUP;
+    public void setFutureConfiguration(TetTConfiguration futureConfiguration) {
+        this.futureConfiguration = futureConfiguration;
     }
 
-    public void setsShapeRIGHT(Positions anchor) {
-        positionOne = new Positions(this.anchor.getX(), this.anchor.getY() + 1);
-        positionTwo = new Positions(this.anchor.getX() + 1, this.anchor.getY());
-        positionThree = new Positions(this.anchor.getX(), this.anchor.getY() - 1);
-        Positions[] positionsRIGHT = {anchor, positionOne, positionTwo, positionThree};
-        super.positions = positionsRIGHT;
+    public void setsShapeLEFT(Position anchor) {
+        positionOne = new Position(this.anchor.getX(), this.anchor.getY() - 1);
+        positionTwo = new Position(this.anchor.getX() - 1, this.anchor.getY());
+        positionThree = new Position(this.anchor.getX(), this.anchor.getY() + 1);
+        Position[] positionLEFT = {anchor, positionOne, positionTwo, positionThree};
+        super.positions = positionLEFT;
     }
 
-    public Positions getAnchor() {
+    public void setsShapeUP(Position anchor) {
+        positionOne = new Position(this.anchor.getX() + 1, this.anchor.getY());
+        positionTwo = new Position(this.anchor.getX(), this.anchor.getY() - 1);
+        positionThree = new Position(this.anchor.getX() - 1, this.anchor.getY());
+        Position[] positionUP = {anchor, positionOne, positionTwo, positionThree};
+        super.positions = positionUP;
+    }
+
+    public void setsShapeRIGHT(Position anchor) {
+        positionOne = new Position(this.anchor.getX(), this.anchor.getY() + 1);
+        positionTwo = new Position(this.anchor.getX() + 1, this.anchor.getY());
+        positionThree = new Position(this.anchor.getX(), this.anchor.getY() - 1);
+        Position[] positionRIGHT = {anchor, positionOne, positionTwo, positionThree};
+        super.positions = positionRIGHT;
+    }
+
+    public Position getAnchor() {
         return anchor;
     }
 
-    public void setAnchor(Positions anchor) {
+    public void setAnchor(Position anchor) {
         this.anchor = anchor;
     }
 
-    public Positions[] getPositions() {
+    public Position[] getPositions() {
         return positions;
     }
 
-    public void setPositions(Positions[] positions) {
+    public void setPositions(Position[] positions) {
         this.positions = positions;
     }
 
-
-    public void eraseFromTerminal(Terminal terminal, Positions[] positions) throws IOException {
-        for (Positions position : positions) {
+    public void eraseFromTerminal(Terminal terminal, Position[] positions) throws IOException {
+        for (Position position : positions) {
             terminal.setCursorPosition(position.getX(), position.getY());
             terminal.putCharacter(' ');
         }
     }
 
-    public Positions getPositionOne() {
+    public Position getPositionOne() {
         return positionOne;
     }
 
-    public Positions getPositionTwo() {
+    public Position getPositionTwo() {
         return positionTwo;
     }
 
-    public Positions getPositionThree() {
+    public Position getPositionThree() {
         return positionThree;
     }
 
@@ -105,6 +109,35 @@ public class TetT extends Tetromino{
 
     public void setConfiguration(TetTConfiguration configuration) {
         this.configuration = configuration;
+    }
+
+    public void rotate (Terminal terminal) throws Exception{
+        eraseFromTerminal(terminal, this.positions);
+
+        if (configurationCount == 1){
+            setsShapeLEFT(this.anchor);
+            setConfiguration(TetTConfiguration.LEFT);
+            setFutureConfiguration(TetTConfiguration.UP);
+            configurationCount++;
+        } else if (configurationCount == 2) {
+            setsShapeUP(this.anchor);
+            setConfiguration(TetTConfiguration.UP);
+            setFutureConfiguration(TetTConfiguration.RIGHT);
+            configurationCount++;
+        } else if (configurationCount == 3) {
+            setsShapeRIGHT(this.anchor);
+            setConfiguration(TetTConfiguration.RIGHT);
+            setFutureConfiguration(TetTConfiguration.DOWN);
+            configurationCount++;
+        } else if (configurationCount == 4) {
+            setsShapeDOWN(this.anchor);
+            setConfiguration(TetTConfiguration.DOWN);
+            setFutureConfiguration(TetTConfiguration.LEFT);
+            configurationCount = 1;
+        }
+
+        printToTerminal(terminal, this.positions);
+        terminal.flush();
     }
 
 

@@ -15,7 +15,7 @@ public class Walls {
         ArrayList<Positions> walls = new ArrayList<>();
         int x = 0;
         int y = 0;
-        //Positions position = new Positions(x, y);
+        //Position position = new Position(x, y);
 
         //for wall upper left to right horizontally
         for (int i = 0; i < 20; i++) {
@@ -63,7 +63,7 @@ public class Walls {
         ArrayList<Positions> walls2 = new ArrayList<>();
         int s = 21;
         int t = 0;
-        //Positions position2 = new Positions(s, t);
+        //Position position2 = new Position(s, t);
 
         //for wall upper left to right horizontally
         for (int i = 21; i < 36; i++) {
@@ -118,7 +118,7 @@ public class Walls {
             ArrayList<Positions> walls3 = new ArrayList<>();
             int c = 36;
             int v = 0;
-            //Positions position3 = new Positions(c, v);
+            //Position position3 = new Position(c, v);
 
 
 //for wall bottom right to left horizontally
